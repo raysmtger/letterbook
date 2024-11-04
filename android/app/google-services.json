@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "953911914146",
+    "project_id": "letterbook-35273",
+    "storage_bucket": "letterbook-35273.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953911914146:android:f0689fd96f6bb1acf571fb",
+        "android_client_info": {
+          "package_name": "com.example.letterbook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbYlGac-rId0Eqdlr8dI_akAUJofC4258"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
