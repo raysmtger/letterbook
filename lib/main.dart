@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:letterbook/views/login_page.dart';
-import 'package:letterbook/views/login_register.dart';
 import 'package:letterbook/firebase_options.dart';
 import 'package:letterbook/views/home_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:letterbook/views/login_page.dart';
+import 'package:letterbook/views/login_register.dart';
+import 'package:letterbook/views/form_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,21 +21,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 0, 0, 1)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainPage(), // define MainPage como a tela inicial
+      home: MainPage(),
       routes: {
-        "/loginRegister": (context) => const LoginRegister(),
-      },
-      onGenerateRoute: (settings) {
-        if (settings.name == '/HomePage') {
-          final user = settings.arguments as User; // recebe o argumento User
-          return MaterialPageRoute(
-            builder: (context) => HomePage(user: user),
-          );
-        }
-        return null;
+        '/loginRegister': (context) => LoginRegister(),
+        '/home': (context) => HomePage(user: FirebaseAuth.instance.currentUser!),
+        '/novoDiario': (context) => FormsDiario(),
       },
     );
   }
@@ -43,20 +37,20 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
-  @override 
+  @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return HomePage(user: snapshot.data!); // redireciona para HomePage se usuário está logado
+          return HomePage(user: snapshot.data!);
         } else {
-          return LoginPage(); // redireciona para LoginPage se não há usuário logado
+          return LoginPage();
         }
       },
     );
