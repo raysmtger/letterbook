@@ -5,8 +5,15 @@ class Diario {
   String title;
   String description;
   DateTime date;
+  String userId; // Novo campo para armazenar o ID do usuário
 
-  Diario({this.id, required this.title, required this.description, required this.date});
+  Diario({
+    this.id,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.userId,
+  });
 
   factory Diario.fromMap(Map<String, dynamic> map, [String? id]) {
     return Diario(
@@ -16,6 +23,7 @@ class Diario {
       date: map['date'] is Timestamp
           ? (map['date'] as Timestamp).toDate()
           : map['date'] as DateTime,
+      userId: map['userId'], // Recupera o userId do map
     );
   }
 
@@ -24,6 +32,7 @@ class Diario {
       'title': title,
       'description': description,
       'date': Timestamp.fromDate(date),
+      'userId': userId, // Adiciona o userId ao map
     };
   }
 }
