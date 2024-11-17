@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letterbook/models/diario_model.dart';
 import 'package:letterbook/services/diario_services.dart';
-import 'package:letterbook/views/home_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class FormsDiario extends StatefulWidget {
   final Diario? diario;
@@ -129,14 +128,7 @@ class _FormsDiarioState extends State<FormsDiario> {
                       );
                     }
                   }
-
-                  Navigator.of(context).pushAndRemoveUntil(
-  MaterialPageRoute(
-    builder: (context) => HomePage(user: FirebaseAuth.instance.currentUser!),
-  ),
-  (route) => false,
-);
-
+                  Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 69, 42, 16),
