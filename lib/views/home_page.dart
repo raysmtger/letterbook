@@ -56,8 +56,9 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () async {
-                          await _diarioService.deleteDiario(diario.id!);
                           Navigator.pop(context);
+                          await _diarioService.deleteDiario(diario.id!);
+                        
                         },
                       ),
                     ],
@@ -142,7 +143,11 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('diarios').snapshots(),
+                stream: FirebaseFirestore.instance
+                .collection('diarios')
+                .where('userId', isEqualTo: widget.user.uid)
+                .snapshots(),
+
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
